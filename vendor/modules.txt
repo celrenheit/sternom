@@ -19,6 +19,9 @@ github.com/inconshreveable/mousetrap
 ## explicit
 # github.com/kr/text v0.2.0
 ## explicit
+# github.com/lithammer/fuzzysearch v1.1.5
+## explicit
+github.com/lithammer/fuzzysearch/fuzzy
 # github.com/mattn/go-colorable v0.1.8
 github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.12
@@ -41,3 +44,7 @@ github.com/spf13/pflag
 ## explicit
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
+# golang.org/x/text v0.3.7
+golang.org/x/text/runes
+golang.org/x/text/transform
+golang.org/x/text/unicode/norm

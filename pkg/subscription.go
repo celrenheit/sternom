@@ -6,18 +6,20 @@ import (
 )
 
 type Subscription struct {
-	Node  string
-	Job   string
-	Alloc string
+	Node       string
+	Job        string
+	Alloc      string
 	AllocShort string
-	Task  string
+	Task       string
+	TaskGroup  string
 }
 
-func NewSubscription(node, job, alloc, task string) *Subscription {
+func NewSubscription(node, job, taskGroup, alloc, task string) *Subscription {
 	ap := strings.Split(alloc, "-")
 	return &Subscription{
 		Node:       node,
 		Job:        job,
+		TaskGroup:  taskGroup,
 		Alloc:      alloc,
 		AllocShort: ap[0],
 		Task:       task,

@@ -7,6 +7,7 @@ require (
 	github.com/hashicorp/nomad/api v0.0.0-20210409161549-050067a749c4
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
+	github.com/lithammer/fuzzysearch v1.1.5
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.1.3
 	github.com/stretchr/testify v1.6.1 // indirect

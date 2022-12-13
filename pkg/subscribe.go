@@ -14,7 +14,7 @@ func Subscriber(client *api.Client, conf *Config, subs <-chan Subscription, out 
 	for sub := range subs {
 		jobColor, allocColor, taskColor := determineColors(sub.Job, sub.Alloc, sub.Task)
 		name := fmt.Sprintf("%s:%s[%s]",
-			jobColor.Sprintf("%s", sub.Job),
+			jobColor.Sprintf("%s(%s)", sub.Job, sub.TaskGroup),
 			allocColor.Sprintf("%s", sub.AllocShort),
 			taskColor.Sprintf("%s", sub.Task))
 		fmt.Fprintf(os.Stderr, "+ %s\n", name)
@@ -62,20 +62,20 @@ func Subscriber(client *api.Client, conf *Config, subs <-chan Subscription, out 
 
 var jobColors = []*color.Color{
 	color.New(color.FgHiCyan),
-	color.New(color.FgGreen),
-	color.New(color.FgMagenta),
-	color.New(color.FgYellow),
-	color.New(color.FgBlue),
-	color.New(color.FgRed),
+	color.New(color.FgHiGreen),
+	color.New(color.FgHiMagenta),
+	color.New(color.FgHiYellow),
+	color.New(color.FgHiBlue),
+	color.New(color.FgHiRed),
 }
 
 var otherColors = []*color.Color{
 	color.New(color.FgHiCyan),
-	color.New(color.FgGreen),
-	color.New(color.FgMagenta),
-	color.New(color.FgYellow),
-	color.New(color.FgBlue),
-	color.New(color.FgRed),
+	color.New(color.FgHiGreen),
+	color.New(color.FgHiMagenta),
+	color.New(color.FgHiYellow),
+	color.New(color.FgHiBlue),
+	color.New(color.FgHiRed),
 }
 
 func determineColors(job, alloc, task string) (jobColor, allocColor, taskColor *color.Color) {

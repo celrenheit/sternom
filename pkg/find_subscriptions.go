@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/hashicorp/nomad/api"
+	"github.com/lithammer/fuzzysearch/fuzzy"
 )
 
 func SubscriptionFinder(client *api.Client, subsCh chan<- Subscription, prefix string, task string) {
@@ -69,7 +70,7 @@ func findJobSubscription(client *api.Client, prefix string, task string) ([]*Sub
 				if task != "" && task != t {
 					continue
 				}
-				subs = append(subs, NewSubscription(al.NodeID, j.Name, al.ID, t))
+				subs = append(subs, NewSubscription(al.NodeID, j.Name, al.TaskGroup, al.ID, t))
 			}
 		}
 	}
@@ -83,7 +84,7 @@ func findAllocSubscription(client *api.Client, prefix string, task string) ([]*S
 		return nil, fmt.Errorf("can't make a search for a allocation by prefix `%s`: %v", prefix, err)
 	}
 	for _, al := range list {
-		if !strings.HasPrefix(al.ID, prefix) {
+		if !strings.HasPrefix(al.ID, prefix) && !fuzzy.Match(prefix, al.TaskGroup) {
 			continue
 		}
 		if al.ClientStatus != api.AllocClientStatusRunning {
@@ -93,7 +94,8 @@ func findAllocSubscription(client *api.Client, prefix string, task string) ([]*S
 			if task != "" && task != t {
 				continue
 			}
-			subs = append(subs, NewSubscription(al.NodeID, al.JobID, al.ID, t))
+
+			subs = append(subs, NewSubscription(al.NodeID, al.JobID, al.TaskGroup, al.ID, t))
 		}
 	}
 	return subs, nil
